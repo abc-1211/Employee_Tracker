@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/abc-1211/Employee_Tracker/issues"
   },
-  "homepage": "https://github.com/abc-1211/Employee_Tracker#readme"
+  "homepage": "https://github.com/abc-1211/Employee_Tracker#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
 }
