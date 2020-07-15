@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/abc-1211/Employee_Tracker#readme",
   "dependencies": {
+    "inquirer": "^7.3.2",
     "mysql": "^2.18.1"
   }
 }
