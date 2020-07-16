@@ -7,7 +7,14 @@ const connect = mysql.createConnection({
     user: "root"
 });
 
-const addEmployee = connect.query((err) => {
+/*const addEmployee = connect.query((err) => {
     if (err) throw err;
     
+})*/
+
+connect.connect((err) => {
+    if (err) throw err;
+    console.log(connect.threadId);
+    console.log("Successfully connected!");
+    connect.end();
 })
