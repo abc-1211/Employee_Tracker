@@ -4,12 +4,12 @@ const util = require("util");
 
 async function employee_tracker() {
     try {
-        let ans = await inquirer.prompt(question);
+        let action = await inquirer.prompt(question);
         console.log(ans);
-        let move = ans.value[0];
+        let move = action.value[0];
         // Move includes add, view and delete.
         // Add = 0, View = 1, Delete = 2
-        let table = ans.value[1];
+        let table = action.value[1];
         // 3 Table in total, employee, role and department
         // Employee = 0, Role = 1, Department = 2, All = 3
         // Add
