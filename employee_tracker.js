@@ -4,14 +4,13 @@ const util = require("util");
 
 async function employee_tracker() {
     try {
-        let action = await inquirer.prompt(question);
-        console.log(ans);
-        let move = action.value[0];
+        let ans = await inquirer.prompt(question);
+        let move = ans.action;
         // Move includes add, view and delete.
         // Add = 0, View = 1, Delete = 2
-        let table = action.value[1];
+        let table = ans.table;
         // 3 Table in total, employee, role and department
-        // Employee = 0, Role = 1, Department = 2, All = 3
+        // Employee = 0, Role = 1, Department = 2
         // Add
         if (move === 0) {
             if (table === 0) {
@@ -37,9 +36,6 @@ async function employee_tracker() {
             }
             else if (table === 2) {
                 // department
-            }
-            else if (table === 3) {
-                // All
             }
             else {
                 console.log("System Error!");
