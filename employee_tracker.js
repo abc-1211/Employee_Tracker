@@ -1,6 +1,8 @@
 const inquirer = require("inquirer");
 const mysql = require("mysql");
 const util = require("util");
+const question = require("./question");
+const Employee = require("./classconstructor");
 
 async function employee_tracker() {
     try {
@@ -15,6 +17,9 @@ async function employee_tracker() {
         if (move === 0) {
             if (table === 0) {
                 // Add data to employee table
+                let { first_name, last_name, role_id, manager_id } = await inquirer.prompt(question.addEmployee);
+                let newppl = new Employee( first_name, last_name, role_id, manager_id );
+
             }
             else if (table === 1) {
                 // role table
