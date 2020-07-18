@@ -9,11 +9,6 @@ const obj = require("./classconstructor");
 // Main route of the app
 async function employee_tracker() {
     try {
-        // Check onnection with the database
-        db.connect.connect((err)=> {
-            if (err) throw err;
-            console.log(connection.threadId + "\n");
-        });
         // Get the move from user and form SQL command
         const { move, table } = await inquirer.prompt(question.path);
         let sqlCommand = db.sqlRequest(move, table);
