@@ -1,24 +1,20 @@
-const inquirer = require("inquirer");
-const Employee = require("./classconstructor");
-
-
 const path = [
     {
         type: "list",
         message: "What would you like to do?",
-        name: "action",
+        name: "move",
         choices: [
             {
                 name: "Add",
-                value: 0
+                value: "add"
             },
             {
                 name: "View",
-                value: 1
+                value: "view"
             },            
             {
                 name: "Delete",
-                value: 2
+                value: "delete"
             }
         ]
     },
@@ -29,15 +25,15 @@ const path = [
         choices: [
             {
                 name: "Employee",
-                value: 0
+                value: "employee"
             },
             {
                 name: "Role",
-                value: 1
+                value: "role"
             },            
             {
                 name: "Department",
-                value: 2
+                value: "department"
             }
         ]
     }
@@ -62,16 +58,34 @@ const addEmployee = [
     }
 ];
 
-// Testing Area
-async function ans() {
-    var { first_name, last_name, role_id, manager_id } = await inquirer.prompt(addEmployee);
-    //console.log(ans);
-    console.log(first_name);
-    
-    var newppl = new Employee( first_name, last_name, role_id, manager_id );
-    console.log("\n" + JSON.stringify(newppl));
-}
+const addRole = [
+    {
+        message: "Enter Role Title:",
+        name: "title"
+    },
+    {
+        message: "Enter Salary:",
+        name: "salary"
+    },
+    {
+        message: "Enter Department ID:",
+        name: "department_id"
+    }
+];
 
-ans()
 
-module.exports = { path, addEmployee};
+const addDepartment = [
+    {
+        message: "Enter Department Name:",
+        name: "name"
+    }
+];
+
+const deleteID = [
+    {
+        message: "Enter Employee's ID you want to delete:",
+        name: "id"
+    }
+];
+
+module.exports = { path, addEmployee, addRole, addDepartment, deleteID };
