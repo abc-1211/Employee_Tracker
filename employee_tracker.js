@@ -1,67 +1,55 @@
+// npm used in this file
 const inquirer = require("inquirer");
-const mysql = require("mysql");
-const util = require("util");
-const question = require("./question");
-const Employee = require("./classconstructor");
 
+// Module get from other file
+const db = require("./function");
+const question = require("./question");
+const obj = require("./classconstructor");
+
+// Main route of the app
 async function employee_tracker() {
     try {
-        let ans = await inquirer.prompt(question);
-        let move = ans.action;
-        // Move includes add, view and delete.
-        // Add = 0, View = 1, Delete = 2
-        let table = ans.table;
-        // 3 Table in total, employee, role and department
-        // Employee = 0, Role = 1, Department = 2
-        // Add
-        if (move === 0) {
-            if (table === 0) {
-                // Add data to employee table
-                let { first_name, last_name, role_id, manager_id } = await inquirer.prompt(question.addEmployee);
-                let newppl = new Employee( first_name, last_name, role_id, manager_id );
-
-            }
-            else if (table === 1) {
-                // role table
-            }
-            else if (table === 2) {
-                // department
-            }
-            else {
-                console.log("System Error!");
-            }
-        }
-        // View
-        else if (move === 1) {
-            if (table === 0) {
-                // employee table
-            }
-            else if (table === 1) {
-                // role
-            }
-            else if (table === 2) {
-                // department
-            }
-            else {
-                console.log("System Error!");
-            }
-        }
-        // Delete
-        else if (move === 2) {
-            if (table === 0) {
-                // employee table
-            }
-            else if (table === 1) {
-                // role
-            }
-            else if (table === 2) {
-                // department
-            }
-            else {
-                console.log("System Error!");
-            }
-        }
+        // Check onnection with the database
+        db.connect.connect((err)=> {
+            if (err) throw err;
+            console.log(connection.threadId + "\n");
+        });
+        // Get the move from user and form SQL command
+        const { move, table } = await inquirer.prompt(question.path);
+        let sqlCommand = db.sqlRequest(move, table);
+        let data;
+        switch (move) {
+            case "add":
+                switch (table) {
+                    case "employee":
+                        let { first_name, last_name, role_id, manager_id } = await inquirer.prompt(question.addEmployee);
+                        data = new obj.Employee (first_name, last_name, role_id, manager_id);
+                        db.addEmployeeDB(sqlCommand, data);
+                        break;
+                    case "role":
+                        let { title, salary, department_id } = await inquirer.prompt(question.addRole);
+                        data = new obj.Role (title, salary, department_id);
+                        db.addRoleDB(sqlCommand, data);
+                        break;     
+                    case "department":
+                        let { name } = await inquirer.prompt(question.addDepartment);
+                        data = new obj.Department (name);
+                        db.addDepartmentDB(sqlCommand, data);
+                        break;     
+                }
+                break;
+            case "view":
+                db.viewDB(sqlCommand, table);
+                break;
+            case "delete":
+                let { id } = await inquirer.prompt(question.deleteID);
+                db.deleteDB(sqlCommand, id);
+                break;
+        } 
+        db.connect.end();
     } catch (err) {
         throw err;
     }
-}
+};
+
+employee_tracker();
