@@ -11,4 +11,22 @@ class Employee {
     }
 }
 
-module.exports = Employee;
+class Role {
+    constructor(title, salary, department_id) {
+        this.title = title;
+        this.salary = salary;
+        if (department_id === "") {
+            this.department_id = null;
+        } else {
+            this.department_id = Number(department_id);
+        }
+    }
+}
+
+class Department {
+    constructor(name) {
+        this.name = name;
+    }
+}
+
+module.exports = { Employee, Role, Department };
